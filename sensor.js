@@ -156,6 +156,7 @@ module.exports = function() {
 		this[passed ? 'upTime' : 'downTime'] += now - this.lastChange;
 		this.firstChange = false;
 		this.healthCount = passed ? this.up : this.fall;
+		this.isHealthy = passed;
 	    } else if (passed !== this.lastHealth) {
 		this.healthCount = 0;
 	    } else {
