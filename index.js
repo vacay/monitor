@@ -94,7 +94,7 @@ module.exports = function() {
 	},
 
 	log: function(serviceName, sensorName, eventType, sensor, data1, data2) {
-	    this.logger.info(serviceName + '/' + sensorName + ': ' + eventType + ' - ' + new Date().toString());
+	    this.logger.info(serviceName + '/' + sensorName + ': ' + eventType + ' - ' + new Date().toString(), data1, data2);
 	},
 
 	alert: function(serviceName, sensorName, eventType, sensor, data1, data2) {
