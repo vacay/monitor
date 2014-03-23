@@ -73,7 +73,7 @@ module.exports = function() {
 	buildSensor: function(serviceName, sensorName, config) {
 	    var client = new StatsD({
 		prefix: config.bucket ? config.bucket : serviceName + '.' + sensorName + '.',
-		host: this.statsd.host,
+		host: this.statsd.host || 'localhost',
 		port: this.statsd.port || 8125,
 		mock: this.statsd ? false : true
 	    });
