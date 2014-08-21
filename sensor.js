@@ -121,7 +121,7 @@ module.exports = function() {
 	    this.status = 'running';
 
 	    var repeat = function() {
-		self.check().apply(self);;
+		self.check.apply(self);;
 		if (self.status === 'running')
 		    setTimeout(repeat, self.interval);
 	    };
