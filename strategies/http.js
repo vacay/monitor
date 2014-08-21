@@ -5,6 +5,7 @@ module.exports = function(options) {
     var newOpts = {};
     newOpts.__proto__ = options;
     newOpts.url = URL.parse(options.url);
+    newOpts.strictSSL = options.strictSSL;
     
     return function(cb) {
 	var req = request(newOpts, function(e, r, body) {
