@@ -99,6 +99,8 @@ module.exports = function() {
 
 	alert: function(serviceName, sensorName, eventType, sensor, data1, data2) {
 	    if (eventType === 'fail' && !sensor.lastHealth) return;
+
+	    if (this.alerts.alertFailWhenDown && eventType === 'fail' && sensor.isHealthy) return;
 	    
 	    var self = this;
 	    var message = serviceName + '\'s ' + sensorName;
@@ -112,8 +114,8 @@ module.exports = function() {
 	    body += '\n\n' + util.inspect(meta, { depth: 10 });
 
 	    this.smtpTransport.sendMail({
-		from: this.email.from,
-		to: this.email.to,
+		from: this.alerts.from,
+		to: this.alerts.to,
 		subject: message,
 		text: body
 	    }, function(err, res) {
@@ -124,6 +126,7 @@ module.exports = function() {
 	setupLogging: function(logs) {
 	    this.loggedEvents = {};
 	    if (!logs) return;
+
 	    for (var i=0; i<logs.length; i++) {
 		this.loggedEvents[logs[i]] = true;
 	    }
@@ -133,9 +136,12 @@ module.exports = function() {
 	    this.alertedEvents = {};
 	    if (!alerts) return;
 
-	    this.alertedEvents = {'fail': true, 'change': true};	    
-	    this.smtpTransport = nodemailer.createTransport('SMTP', alerts);
-	    this.email = alerts;
+	    for (var i=0; i<alerts.events.length; i++) {
+		this.alertedEvents[alerts.events[i]] = true;
+	    }
+
+	    this.smtpTransport = nodemailer.createTransport('SMTP', alerts.smtp);
+	    this.alerts = alerts;
 	},
 
 	buildServices: function(config) {
