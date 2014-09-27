@@ -98,9 +98,7 @@ module.exports = function() {
 	},
 
 	alert: function(serviceName, sensorName, eventType, sensor, data1, data2) {
-	    if (eventType === 'fail' && !sensor.lastHealth) return;
-
-	    if (this.alerts.alertFailWhenDown && eventType === 'fail' && sensor.isHealthy) return;
+	    if (eventType === 'fail' && (!sensor.lastHealth || sensor.isHealthy)) return;
 	    
 	    var self = this;
 	    var message = serviceName + '\'s ' + sensorName;
