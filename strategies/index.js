@@ -3,5 +3,6 @@ module.exports = {
     mysql: require('./mysql'),
     tcp: require('./tcp'),
     redis: require('./redis'),
-    elasticsearch: require('./elasticsearch')
+    elasticsearch: require('./elasticsearch'),
+    websocket: require('./websocket')
 };
