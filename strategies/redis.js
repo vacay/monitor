@@ -1,23 +1,23 @@
 module.exports = function(options) {
-    try {
-	var redis = require('redis');
-	var client = redis.createClient(options.port, options.host);
-	if (options.password) client.auth(options.password);
-    } catch (e) {
-	throw 'Please install the redis driver: npm install redis';
-    }
-
-    var error = false;
-    client.on('error',   function () { error = true; });
-    client.on('connect', function () { error = false; });
+    var redis = require('redis');
 
     return function(cb) {
-	if (error) {
-	    cb('connection error');
-	    return;
-	}
+	var client = redis.createClient(options.port, options.host);
+	if (options.password) client.auth(options.password);
 
-	client.ping(cb); 
+	var returned = false;
+	
+	client.on('error', function (err) {
+	    if (!returned) cb(err);
+	    returned = true;
+	    client.end();
+	});
+
+	client.ping(function(err) {
+	    if (!returned) cb(err);
+	    returned = true;
+	});
+
 	client.quit();
     };
 };
