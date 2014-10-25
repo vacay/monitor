@@ -18,5 +18,6 @@ module.exports = function(options) {
 	}
 
 	client.ping(cb); 
+	client.quit();
     };
 };

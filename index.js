@@ -71,12 +71,19 @@ module.exports = function() {
 	},
 
 	buildSensor: function(serviceName, sensorName, config) {
+	    var self = this;
+
 	    var client = new StatsD({
 		prefix: config.bucket ? config.bucket : serviceName + '.' + sensorName + '.',
 		host: this.statsd.host || 'localhost',
 		port: this.statsd.port || 8125,
 		mock: this.statsd ? false : true
 	    });
+
+	    client.on('error', function(err) {
+		self.logger.error('statsd error: ', err);
+	    });
+
 	    var sensor = new Sensor();
 	    sensor.initialize(sensorName, config, client);
 	    for (var i=0; i<EVENTS.length; i++) {

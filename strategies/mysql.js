@@ -5,7 +5,8 @@ module.exports = function(options) {
     
     return function(cb) {
 	conn.query(sql, function(err, rows, fields) { 
-	    cb(err); 
+	    cb(err);
+	    conn.destroy();
 	});
     };
 };
