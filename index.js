@@ -80,7 +80,7 @@ module.exports = function() {
 		mock: this.statsd ? false : true
 	    });
 
-	    client.on('error', function(err) {
+	    client.socket.on('error', function(err) {
 		self.logger.error('statsd error: ', err);
 	    });
 
