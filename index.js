@@ -108,12 +108,13 @@ module.exports = function() {
 	    if (eventType === 'fail' && (!sensor.lastHealth || sensor.isHealthy)) return;
 	    
 	    var self = this;
-	    var message = serviceName + '\'s ' + sensorName;
+	    var message = serviceName + '\'s ' + sensorName + ' ' + eventType;
 
-	    if (eventType === 'change') message += data1 ? ' is up!' : ' is down';
-	    else message += ' failed: ' + data2;
-
-	    var meta = { sensor: sensor.getInfo() };
+	    var meta = {
+		sensor: sensor.getInfo(),
+		data1: data1,
+		data2: data2
+	    };
 
 	    var body = message;
 	    body += '\n\n' + util.inspect(meta, { depth: 10 });
