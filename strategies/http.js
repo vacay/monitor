@@ -16,7 +16,7 @@ module.exports = function(options) {
 	    }
 
 	    var code = r.statusCode;
-	    if (parseInt(code) >= 400) {
+	    if (parseInt(code, 10) >= 400) {
 		cb('error status code ' + code);
 		return;
 	    }
