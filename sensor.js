@@ -163,11 +163,11 @@ module.exports = function() {
 		if (err) this.healthCount--;
 		else this.healthCount++;
 
-		if (this.healthCount === this.fall) {
+		if (this.healthCount === this.fall && this.isHealthy) {
 		    this.isHealthy = false;
 		    this.emitter.emit('change', this.isHealthy);
 		    this.emitter.emit('down');
-		} else if (this.healthCount === this.up) {
+		} else if (this.healthCount === this.up && !this.isHealthy) {
 		    this.isHealthy = true;
 		    this.emitter.emit('change', this.isHealthy);
 		    this.emitter.emit('up');
