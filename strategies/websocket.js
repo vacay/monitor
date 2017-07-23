@@ -4,7 +4,7 @@ module.exports = function(options) {
 
   return function(cb) {
     var ws = new WebSocket(url, {
-      strictSSL: optsions.strictSSL
+      strictSSL: options.strictSSL
     });
     var returned = false;
 
