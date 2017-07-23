@@ -2,7 +2,7 @@
     "name": "monitor",
     "author": "admin <admin@vacay.io>",
     "description": "basic monitoring & alerting",
-    "version": "0.1.14",
+    "version": "0.1.15",
     "private": true,
     "repository": {
         "type": "git",
